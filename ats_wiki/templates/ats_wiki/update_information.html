@@ -1,0 +1,17 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %} <!-- Add this line -->
+
+{% block title %}Update Content{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+{% block content %}
+<div class="card-head">
+    <h4>Update Content</h4>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update">
+    </form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %}
+{% block content %}
+                    <div class="container">
+                        <div class="row mt-2">
+                            <div class="col-12 col-sm-12 col-md-10 col-lg-8 offset-lg-2 my-2">
+                                <div class="inner bg-white p-3 shadow-sm rounded-4">
+                                    <div class="bg-red p-2 rounded-1 mb-3">
+                                        <div class="text-white">
+                                            Detail_View
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-semibold mb-1">Subject :</label>
+                                        <p>{{ item.subject }}</p>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-semibold mb-1">Description :</label>
+                                        <p>{{ item.description | safe }}</p>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-semibold mb-1">Created By :</label>
+                                        <p>{{ item.Created_by.first_name }} {{ item.Created_by.last_name }}</p>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-semibold mb-1">Created Date :</label>
+                                        <p>{{ item.Created }}</p>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-semibold mb-1">Files :</label>
+                                        {% if file_uploads %}
+                                            <ul>
+                                            {% for file_upload in file_uploads %}
+                                                
+                                                    {% if file_upload.file %}
+                                                        <li><a href="{{ file_upload.file.url }}">{{ file_upload.file.name }}</a></li>
+                                                    {% endif %} 
+                                            {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <p>No files uploaded.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}
+

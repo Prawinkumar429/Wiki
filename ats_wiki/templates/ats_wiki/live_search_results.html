@@ -1,0 +1,45 @@
+{% load static %}
+<div class="container">
+    <div class="row gx-3">
+        {% for entry in entries %}
+        <div class="col-12 col-sm-12 col-md-12 col-lg-4 my-2">
+            <div class="inner bg-white p-3 shadow-sm rounded-4 h-100">
+                <div class="card border-0 h-100">
+                    
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 offset-0 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                                <div>
+                                    <img class="card-img-top rounded-4 w-100 mx-auto d-block" src="{% static '/images/exchange.png' %}" alt="Card image cap" />
+                                    <img class="card-img-top rounded-4" src="" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-2">
+                            <h5 class="text-primary text-capitalize text-dark pt-3">Subject</h5>
+                            <p class="text-primary text-capitalize text-dark mb-0 px-2 py-1 border shadow-sm rounded-3 sub-ellipses">{{ entry.subject|slice:":50" }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <h5 class="text-primary text-capitalize text-dark pt-3">Description</h5>
+                            <p class="text-primary text-capitalize text-dark mb-0 px-2 py-1 border shadow-sm rounded-3 des-ellipses">{{ entry.description | striptags |slice:":200"}}</p>
+                        </div>
+                        <a href="{% url 'item_detail1' entry.pk %}" class="btn btn-sm btn-red fw-semibold">View More</a>
+                        <div class="author_info d-flex align-items-center">
+                            <div class="d-none d-lg-block">
+                                <a class="nav-link fs-6 text-dark fw-semibold bg-vol rounded-circle profile_s me-2 d-inline-flex align-items-center justify-content-center" href="#">
+                                    <span class="d-flex align-items-center justify-content-center fs-3 text-white">
+                                        {{ entry.Created_by.first_name |slice:":1"}}
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="inner_name me-auto pt-3">
+                                <h5 class="mb-0">{{ entry.Created_by.first_name }} {{ entry.Created_by.last_name }}</h5>
+                                <p class="fw-semibold text-muted">{{ entry.Created }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}

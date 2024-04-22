@@ -1,0 +1,58 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %}
+{% block content %}
+                    <div class="container">
+                        {% if messages %}
+                                    {% for message in messages %}
+                            <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %}" role="alert">
+                                {{ message }}
+                            </div>
+                                    {% endfor %}
+                                {% endif %}
+                        <div class="row g-1">
+                            <div class="col-12 mb-2 mt-3">
+                                    <h4>Add Content</h4>
+                                </div>
+                            <form class="form-wx don-bg bg-white p-4 rounded-5" enctype="multipart/form-data" method="post" action="{% url 'add_information1' %}">
+                                {% csrf_token %}
+                                <div class="col-12 mb-3">
+                                    <label for="subject" class="form-label fw-semibold mb-1">Subject <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-pill py-2" id="subject" placeholder="Subject" name="subject" required="" />
+                                </div>
+
+                                <div class="col-12 mb-3">
+                                    <label for="description" class="form-label fw-semibold mb-1">Description <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="description" rows="7" placeholder="Description" name="description" maxlength="800"></textarea>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="created_by" class="form-label fw-semibold mb-1">Created By</label>
+                                    
+                                    <select name="created_by" id="created_by" class="form-select" aria-label="Default select example">
+                                        {% for user in users %}
+                                        <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label for="file_upload" class="form-label fw-semibold mb-1">File Upload</label>
+                                    <input class="form-control" type="file" id="file_upload" name="file_upload" multiple />
+                                </div>
+
+                                <div class="col-12 d-flex align-items-center justify-content-end">
+                                    <button type="submit" class="btn btn-red px-4 rounded-pill py-2 mb-3 fw-bold">
+                                        Submit
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .then(description => { console.log(description); })
+            .catch(description => { console.error(description); });
+    </script>
+    {% endblock %}

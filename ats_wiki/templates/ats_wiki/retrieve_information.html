@@ -1,0 +1,26 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %} <!-- Add this line -->
+{% block title %}List of contents{% endblock %}
+{% block content %}
+<div class="card-head">
+  <h4>List of contents</h4> 
+  <div class="table-container">
+    {% for entry in entries %}
+    <figure>
+      <img src="{% static 'logo.png' %}" width="125" height="45" alt="ATS">
+      <div class="entry-details">
+        <div class="entry-label">Subject:</div>
+        <div class="entry-value">{{ entry.subject|slice:":25" }}</div>
+        <div class="entry-label">Created_by:</div>
+        <div class="entry-value">{{ entry.Created_by.first_name }} {{ entry.Created_by.last_name }}</div>
+        <div class="entry-label">Created_Date:</div>
+        <div class="entry-value">{{ entry.Created }}</div>
+        <div class="entry-label">Description:</div>
+        <div class="entry-value">{{ entry.description|slice:":25"|safe }}</div>
+        <div class="entry-action"><a href="{% url 'item_detail1' entry.pk %}">View</a></div>
+      </div>
+    </figure>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

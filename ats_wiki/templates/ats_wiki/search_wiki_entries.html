@@ -1,0 +1,77 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %}
+{% block content %}
+                    <div class="container">
+                        <div class="row g-1">
+                            <div class="col-12 mt-2 mb-3">
+                                <h4 class="mb-0">Search Content</h4>
+                            </div>
+                            <form class="form-inline inps">
+                                <div class="input-group">
+                                    <input type="text" class="form-control border-0 py-3" id="searchInput" placeholder="Search..." onkeyup="liveSearch()">
+                                    <div class="input-group-append border-0 d-none d-lg-block">
+                                        <span class="input-group-text border-0 bg-white py-3 sr_btn" id="basic-addon1">
+                                            <span class="material-symbols-outlined">
+                                                search
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-12">
+                                <div class="row mt-2" id="searchResults">
+                                    {% for entry in entries %}
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-4 my-2">
+                                        <div class="inner bg-white p-3 shadow-sm rounded-4">
+                                            <div class="card border-0 h-100">
+                                                <img class="card-img-top rounded-4" src="{% static '/images/exchange.png' %}" alt="">
+                                                <div class="card-body">
+                                                    <h5 class="text-primary text-capitalize text-dark pt-3">Subject</h5>
+                                                    <p class="card-title text-capitalize text-muted fw-semibold">{{ entry.subject|slice:":25" }}</p>
+                                                    <h5 class="text-primary text-capitalize text-dark pt-3">Description</h5>
+                                                    <p class="card-title text-capitalize text-muted fw-semibold">{{ entry.description | safe |slice:":65" }}</p>
+                                                    <a href="{% url 'item_detail' entry.pk %}" class="btn btn-sm btn-red fw-semibold">View More</a>
+                                                    <div class="author_info d-flex align-items-center">
+                                                        <div class="d-none d-lg-block">
+                                                            <a class="nav-link fs-6 text-dark fw-semibold bg-vol rounded-circle profile_s me-2 d-inline-flex align-items-center justify-content-center" href="#">
+                                                                <span class="d-flex align-items-center justify-content-center fs-3 text-white">{{ entry.Created_by.first_name |slice:":1"}}</span>
+                                                            </a>
+                                                        </div>
+                                                        <div class="inner_name me-auto pt-3">
+                                                            <h5 class="mb-0">{{ entry.Created_by.first_name }} {{ entry.Created_by.last_name }}</h5>
+                                                            <p class="fw-semibold text-muted">{{ entry.Created }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       {% block extra_scripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="{% static './js/bootstrap.bundle.min.js' %}"></script>
+        <script>
+            function liveSearch() {
+                var input = document.getElementById("searchInput");
+                var query = input.value;
+
+                $.ajax({
+                    url: '/live_search_results/',
+                    data: {
+                        'q': query
+                    },
+                    success: function(data) {
+                        $('#searchResults').html(data);
+                    }
+                });
+            }
+        </script>
+{% endblock %}
+{% endblock %}

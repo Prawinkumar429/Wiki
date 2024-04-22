@@ -1,0 +1,20 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %}
+
+{% block title %}{{ item.subject }}{% endblock %}
+
+{% block content %}
+<div class="card-head">
+    <h4 >{{ item.subject }}</h4><br>
+    <div class="entry-label">Description:</div><br>
+    <div class="entry-value">{{ item.description }}</div><br>
+    <div class="entry-label">Category:</div><br>
+    <div class="entry-value">{{ item.category }}</div><br>
+    <div class="entry-label">Created_Date:</div><br>
+    <div class="entry-value">{{ item.Created }}</div><br>
+    <div class="entry-label">File:</div><br>
+    {% if download_url %}
+        <p><a href="{{ download_url }}">Download File</a></p>
+    {% endif %}
+</div>
+{% endblock %}

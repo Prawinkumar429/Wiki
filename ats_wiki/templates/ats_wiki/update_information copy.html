@@ -1,0 +1,79 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %}
+{% block content %}
+                    <div class="container mb-3">
+                        <div class="row g-1">
+                            <div class="col-12 mt-2 mb-3">
+                                <h4 class="mb-0">Update Content</h4>
+                            </div>
+                            <form class="form-wx don-bg bg-white p-4 rounded-5" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                            
+                                <div class="col-12 mb-3">
+                                    <label for="id_subject" class="form-label text-dark fw-bold">Subject <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control rounded-pill py-2" id="id_subject" name="subject" value="{{ form.subject.value }}" required />
+                                </div>
+                            
+                                <div class="col-12 mb-3">
+                                    <label for="id_description" class="form-label text-dark fw-bold">Description <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="id_description" name="description" rows="7" maxlength="800">{{ form.description.value }}</textarea>
+                                </div>
+                            
+                                <!-- Display existing files as URLs if they exist -->
+                                {% if uploaded_files %}
+                                    <h6>Existing Files:</h6>
+                                    <ul>
+                                        {% for file in uploaded_files %}
+                                            {% if file.file %}
+                                                <li>
+                                                    <a href="{{ file.file.url }}">{{ file.file.name }}</a>
+                                                    <button class="btn btn-sm btn-red ms-3" type="button" onclick="confirmDelete({{ file.id }})">Delete</button>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>No files uploaded yet.</p>
+                                {% endif %}
+                            
+                                <!-- File upload field for new files -->
+                                <div>
+                                    <label for="id_file">Upload New File:</label>
+                                    {{ file_form.file }}
+                                </div>
+                            
+                                <div class="col-12 d-flex align-items-center justify-content-end">
+                                    <button type="submit" class="btn btn-red px-4 rounded-pill py-2 mb-3 fw-bold">Update
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- inner section -->
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="{% static './js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#id_description'))
+            .then(description => { console.log(description); })
+            .catch(description => { console.error(description); });
+    </script>
+    <script>
+        function confirmDelete(fileId) {
+            if (confirm("Are you sure you want to permanently delete this file?")) {
+                window.location.href = "{% url 'permanent_delete_file' %}?file_id=" + fileId;
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#id_file').prop('required', false);  // Remove 'required' attribute from file input
+        });
+    </script>
+{% endblock %} 

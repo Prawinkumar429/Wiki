@@ -1,0 +1,92 @@
+.profile_s{
+    height: 45px;
+    width: 45px;
+}
+
+body{
+    background-color: #efeded;
+}
+a{
+    text-decoration: none;
+}
+
+.bg-book{
+    background-color: #efeded;
+    
+}
+
+.tags_pd{
+    padding: 3px 10px 5px 10px;
+}
+.inps{
+    border: 2px solid #efeded;
+    border-radius: 5px;
+}
+
+.bg-vol{
+    background-color: #5d22b6;
+}
+
+.bg-ats{
+    background-color: #e63946;
+}
+
+.w-max{
+    width: max-content;
+
+}
+
+.text-p{
+    color: #ffb3c6;
+}
+
+.sr_btn{
+    border-radius: 0px 10px 10px 0px;
+}
+
+.menu-icons{
+    font-size: 16px;
+    position: relative;
+}
+
+.menu-name{
+    position: absolute;
+    left: 40px;
+}
+
+.sub-ellipses{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    height: 35px;
+}
+.des-ellipses{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    height: 83px;
+}
+
+.bg-red{
+    background-color: #ea212a;
+}
+
+.btn-red{
+    background-color: #ea212a;
+    border-color: #ea212a;
+    color: #fff !important;
+}
+.btn-red:hover, .btn-red:focus, .btn-red:active{
+    background-color: #ff2d36 !important;
+    border-color: #ff2d36 !important;
+    color: #fff !important;
+}
+.ck {
+    width: 90%; /* Set width to 100% of its container */
+    height: 200px; /* Set the desired height */
+    resize: vertical; /* Allow vertical resizing */
+}

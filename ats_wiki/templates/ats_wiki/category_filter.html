@@ -1,0 +1,48 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %} <!-- Add this line -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Entries for {{ category }}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="grid-container">
+    <div class="grid-nav">
+        <img src="{% static 'logo.png' %}" width="125" height="45" alt="ATS">
+        <h2>ATS Wiki</h2>
+        {% if user.is_authenticated %}
+            <p>Hello, <span>{{ user.first_name }}</span></p>
+        {% else %}
+            <p>Hello, Guest</p>
+        {% endif %}
+    </div>
+    <div class="grid-sidebar">
+        {% for category in categories %}
+        {% if category.category %} {# Check if category is not empty #}
+            <a href="{% url 'category_filter' category=category.category %}">{{ category.category }} - {{ category.count }}</a><br>
+        {% endif %}
+        {% endfor %}
+        <a href="{% url 'add_information' %}">Add Content</a><br>
+        <!-- Sidebar navigation links -->
+    </div>
+    <div class="grid-content">
+        <h2>Entries for {{ category }}</h2>
+        {% if entries %}
+            <ul>
+                {% for entry in entries %}
+                    <li>{{ entry.subject }}</li>
+                    <p>{{ entry.description }}</p>
+                    <!-- Display other fields of WikiEntry model as needed -->
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No entries found for {{ category }}</p>
+        {% endif %}
+    </div>
+    <div class="grid-footer">
+        <h6>&copy; 2024 Automated Tooling Systems India Pvt Ltd</h6>
+    </div>
+</div>
+</body>
+</html>

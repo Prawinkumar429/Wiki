@@ -1,0 +1,79 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %}
+{% block content %}
+                    <div class="container">
+                        <div class="row mt-2">
+                            <div class="col-12 col-sm-12 col-md-10 col-lg-8 offset-lg-2 my-2">
+                                <div class="inner bg-white p-3 shadow-sm rounded-4">
+                                    <div class="bg-red p-2 rounded-1 mb-3">
+                                        <div class="text-white">
+                                            Approval Content
+                                        </div>
+                                    </div>
+                                    <form class="form-wx don-bg bg-white p-4 rounded-5" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                    
+                                        <div class="col-12 mb-3">
+                                            <label for="id_subject" class="form-label text-dark fw-bold">Subject <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control rounded-pill py-2" id="id_subject" name="subject" value="{{ item.subject }}" required />
+                                        </div>
+                                    
+                                        <div class="col-12 mb-3">
+                                            <label for="id_description" class="form-label text-dark fw-bold">Description <span class="text-danger">*</span></label>
+                                            <textarea class="form-control" id="id_description" name="description" rows="7" maxlength="800">{{ item.description }}</textarea>
+                                        </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-semibold mb-1">Created By :</label>
+                                        <p>{{ item.Created_by.first_name }} {{ item.Created_by.last_name }}</p>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-semibold mb-1">Created Date :</label>
+                                        <p>{{ item.Created }}</p>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-semibold mb-1">Files :</label>
+                                        {% if file_uploads %}
+                                            <ul>
+                                            {% for file_upload in file_uploads %}
+                                                
+                                                    {% if file_upload.file %}
+                                                        <li><a href="{{ file_upload.file.url }}">{{ file_upload.file.name }}</a></li>
+                                                    {% endif %} 
+                                            {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            <p>No files uploaded.</p>
+                                        {% endif %}
+                                        </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="approval_status" class="form-label fw-semibold mb-1">Approval Status :</label>
+                                        <select name="approval_status" id="approval_status" class="form-control">
+                                            <option value="pending" {% if item.Approval_Status == 'pending' %} selected {% endif %}>Pending</option>
+                                            <option value="approved" {% if item.Approval_Status == 'approved' %} selected {% endif %}>Approved</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="comments" class="form-label fw-semibold mb-1">Comments :</label>
+                                        <textarea class="form-control" id="comments" rows="7" placeholder="comments" name="comments" maxlength="800">{{ item.Comments }}</textarea>
+                                    </div>
+                                    <div class="col-12 d-flex align-items-center justify-content-end">
+                                        <button type="submit" class="btn btn-red px-4 rounded-pill py-2 mb-3 fw-bold">
+                                            Submit
+                                        </button>
+                                    </div>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+                    <script>
+                        ClassicEditor
+                            .create(document.querySelector('#id_description'))
+                            .then(description => { console.log(description); })
+                            .catch(description => { console.error(description); });
+                    </script>
+                    {% endblock %}

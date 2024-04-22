@@ -1,0 +1,10 @@
+{% extends 'ats_wiki/base.html' %}
+{% load static %} <!-- Add this line -->
+
+{% block title %}Update Content{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+{% block content %}
+<h2>File Deleted Successfully</h2>
+    <p>The file has been permanently deleted.</p>
+{% endblock %}
